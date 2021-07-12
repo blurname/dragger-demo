@@ -1,0 +1,8 @@
+.dragBox{
+	background-color: yellowgreen;
+}
+.layout{
+	display: flex;
+	flex-direction: row;
+	flex: 1;
+}
