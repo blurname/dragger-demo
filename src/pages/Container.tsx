@@ -9,7 +9,8 @@ function Container() {
 		left: number
 		top: number
 	}
-	const [pos, setPos] = useState({left: 0, top: 0} as Pos);
+
+	const [pos, setPos] = useState({left: 100, top: 0} as Pos);
 
 
 	const handleOnDrag = (e: DragEvent) => {
@@ -18,21 +19,25 @@ function Container() {
 	}
 	const handleOnDragEnd = (e: DragEvent) => {
 		setPos({left: e.pageX, top: e.pageY})
-		console.log('dragend');
-		console.log(pos)
 	}
+	const handleDragStart = (e: DragEvent) => {
+		e.dataTransfer.setData("pageX", e.pageX.toString())
+		e.dataTransfer.setData("pageY", e.pageY.toString())
+	}
+
 	useEffect(
 		() => {
 			console.log('useEffect');
 			console.log(pos);
 		}, [pos]
+
 	)
 	return (
 		<div className='layout'>
-			<div style={{width: 80, height: 80, left: pos.left, top: pos.top}} className="dragBox" draggable={true} >
+			<Editor></Editor>
+			<div style={pos} className="dragBox" draggable={true} onDragStart={handleDragStart} onDragEnd={handleOnDragEnd}>
 				box
 			</div>
-			<Editor></Editor>
 			<Canvas></Canvas>
 			<Control></Control>
 		</div>
